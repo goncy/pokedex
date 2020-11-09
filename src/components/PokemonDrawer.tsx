@@ -10,6 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/core";
 import {Icon} from "@chakra-ui/core";
+import {motion, useAnimation} from "framer-motion";
 import {RiArrowLeftLine} from "react-icons/ri";
 
 import {Pokemon} from "../types";
@@ -22,6 +23,20 @@ interface Props extends Omit<DrawerProps, "children" | "isOpen" | "id"> {
 }
 
 const PokemonDrawer: React.FC<Props> = ({onClose, pokemon}) => {
+  const animation = useAnimation();
+
+  React.useEffect(() => {
+    async function animate() {
+      await animation.start({x: 100, opacity: 0});
+      await animation.start({x: 0, opacity: 1});
+      await animation.start({rotateZ: -10});
+      await animation.start({rotateZ: 10});
+      await animation.start({rotateZ: 0});
+    }
+
+    animate();
+  }, [animation]);
+
   return (
     <Drawer isOpen placement="right" size="lg" onClose={onClose}>
       <DrawerOverlay>
@@ -45,13 +60,18 @@ const PokemonDrawer: React.FC<Props> = ({onClose, pokemon}) => {
                 ))}
               </Stack>
             </Stack>
-            <Image
-              alignSelf="center"
-              marginBottom={-3}
-              maxWidth="60vw"
-              src={pokemon.image}
-              zIndex={1}
-            />
+            <motion.div animate={animation} initial={{opacity: 0}} style={{zIndex: 1, originY: 1}}>
+              <Image
+                alignSelf="center"
+                height={256}
+                margin="auto"
+                marginBottom={-3}
+                maxWidth={256}
+                src={pokemon.image}
+                width="100%"
+                zIndex={1}
+              />
+            </motion.div>
           </Stack>
           <Stack
             backgroundColor="white"

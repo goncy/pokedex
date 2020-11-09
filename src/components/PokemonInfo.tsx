@@ -40,39 +40,45 @@ const PokemonInfo: React.FC<Props> = ({pokemon}) => {
         <TabPanel paddingX={0}>
           <Stack spacing={3}>
             <table>
-              <tr>
-                <Text as="td" color="gray.500" width={32}>
-                  Species
-                </Text>
-                <td>{pokemon.species}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <Text as="td" color="gray.500" width={32}>
+                    Species
+                  </Text>
+                  <td>{pokemon.species}</td>
+                </tr>
+              </tbody>
             </table>
             <Heading fontSize="xl">Breeding</Heading>
             <table>
-              <tr>
-                <Text as="td" color="gray.500" width={32}>
-                  Egg Cycle
-                </Text>
-                <td>{pokemon.types[0]}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <Text as="td" color="gray.500" width={32}>
+                    Egg Cycle
+                  </Text>
+                  <td>{pokemon.types[0]}</td>
+                </tr>
+              </tbody>
             </table>
           </Stack>
         </TabPanel>
         <TabPanel paddingX={0}>
           <Box as="table" width="100%">
-            {Object.entries(pokemon.stats).map(([title, value]) => (
-              <tr key={title}>
-                <Text as="td" color="gray.500" paddingY={1} width="40%">
-                  {STATS_DICTIONARY[title as keyof Pokemon["stats"]]}
-                </Text>
-                <Text as="td" paddingY={1} width="15%">
-                  {value}
-                </Text>
-                <Box as="td" paddingY={1} width="45%">
-                  <Progress colorScheme={value >= 50 ? "green" : "red"} size="xs" value={value} />
-                </Box>
-              </tr>
-            ))}
+            <tbody>
+              {Object.entries(pokemon.stats).map(([title, value]) => (
+                <tr key={title}>
+                  <Text as="td" color="gray.500" paddingY={1} width="40%">
+                    {STATS_DICTIONARY[title as keyof Pokemon["stats"]]}
+                  </Text>
+                  <Text as="td" paddingY={1} width="15%">
+                    {value}
+                  </Text>
+                  <Box as="td" paddingY={1} width="45%">
+                    <Progress colorScheme={value >= 50 ? "green" : "red"} size="xs" value={value} />
+                  </Box>
+                </tr>
+              ))}
+            </tbody>
           </Box>
         </TabPanel>
       </TabPanels>
